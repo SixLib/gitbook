@@ -1,6 +1,0 @@
-{
-  "title": "javascript",
-  "language": "zh-hans",
-  "author": "sixlib",
-  "plugins": ["-sharing", "-lunr", "-search", "splitter", "search-pro-kui"]
-}
