@@ -1,0 +1,435 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>javascript闭包 · sixlib的小书</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="sixlib">
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search-pro-kui/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="javascript设计模式.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    readme
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="javascript基础.html">
+            
+                <a href="javascript基础.html">
+            
+                    
+                    javascript基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="javascript设计模式.html">
+            
+                <a href="javascript设计模式.html">
+            
+                    
+                    javascript设计模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.4" data-path="javascript闭包.html">
+            
+                <a href="javascript闭包.html">
+            
+                    
+                    javascript闭包
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >javascript闭包</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="javascript-&#x95ED;&#x5305;">javascript &#x95ED;&#x5305;</h1>
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#javascript-&#x95ED;&#x5305;">javascript &#x95ED;&#x5305;</a><ul>
+<li><a href="#&#x8BCD;&#x6CD5;&#x4F5C;&#x7528;&#x57DF;">&#x8BCD;&#x6CD5;&#x4F5C;&#x7528;&#x57DF;</a></li>
+<li><a href="#&#x95ED;&#x5305;">&#x95ED;&#x5305;</a></li>
+<li><a href="#&#x7528;&#x95ED;&#x5305;&#x6A21;&#x62DF;&#x79C1;&#x6709;&#x65B9;&#x6CD5;&#x6A21;&#x5757;&#x6A21;&#x5F0F;module-pattern">&#x7528;&#x95ED;&#x5305;&#x6A21;&#x62DF;&#x79C1;&#x6709;&#x65B9;&#x6CD5;&#xFF1A;&#x6A21;&#x5757;&#x6A21;&#x5F0F;(module pattern)</a></li>
+<li><a href="#&#x5728;&#x5FAA;&#x73AF;&#x4E2D;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x95ED;&#x5305;&#x662F;&#x4E00;&#x4E2A;&#x5E38;&#x89C1;&#x7684;&#x9519;&#x8BEF;">&#x5728;&#x5FAA;&#x73AF;&#x4E2D;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x95ED;&#x5305;&#xFF1A;<em>&#x662F;&#x4E00;&#x4E2A;&#x5E38;&#x89C1;&#x7684;&#x9519;&#x8BEF;</em></a></li>
+<li><a href="#&#x6027;&#x80FD;&#x8003;&#x91CF;">&#x6027;&#x80FD;&#x8003;&#x91CF;</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="&#x8BCD;&#x6CD5;&#x4F5C;&#x7528;&#x57DF;">&#x8BCD;&#x6CD5;&#x4F5C;&#x7528;&#x57DF;</h2>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">init</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> name = <span class="hljs-string">&quot;sixlib&quot;</span>; <span class="hljs-comment">// name &#x662F;&#x4E00;&#x4E2A;&#x88AB; init &#x521B;&#x5EFA;&#x7684;&#x5C40;&#x90E8;&#x53D8;&#x91CF;</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">displayName</span>(<span class="hljs-params"></span>) </span>{ <span class="hljs-comment">// displayName() &#x662F;&#x5185;&#x90E8;&#x51FD;&#x6570;,&#x4E00;&#x4E2A;&#x95ED;&#x5305;</span>
+        alert(name); <span class="hljs-comment">// &#x4F7F;&#x7528;&#x4E86;&#x7236;&#x51FD;&#x6570;&#x4E2D;&#x58F0;&#x660E;&#x7684;&#x53D8;&#x91CF;</span>
+    }
+    displayName();
+}
+init();
+</code></pre>
+<p><code>displayName()</code>&#x5185;&#x7684;<code>alert()</code>&#x663E;&#x793A;&#x989D;&#x7236;&#x7EA7;&#x51FD;&#x6570;&#x4E2D;&#x58F0;&#x660E;&#x7684;<code>name</code>&#x53D8;&#x91CF;&#x503C;&#x3002;</p>
+<h2 id="&#x95ED;&#x5305;">&#x95ED;&#x5305;</h2>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">makeFunc</span>(<span class="hljs-params"></span>)
+</span>{
+    <span class="hljs-keyword">var</span> name=<span class="hljs-string">&apos;sixlib&apos;</span>;
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">display</span><span class="hljs-title">Name</span>(<span class="hljs-params"></span>)
+    </span>{
+        alert(name);
+    }
+    <span class="hljs-keyword">return</span> displayName;<span class="hljs-comment">//displayName()&#x88AB;&#x5916;&#x90E8;&#x8C03;&#x7528;</span>
+}
+<span class="hljs-keyword">var</span> myFunc=makeFunc();<span class="hljs-comment">//&#x521B;&#x5EFA;displayName()&#x5B9E;&#x4F8B;&#x5F15;&#x7528;</span>
+myFunc();
+</code></pre>
+<p><code>myFunc</code>&#x662F;&#x6267;&#x884C;<code>makeFunc</code>&#x65F6;&#x521B;&#x5EFA;&#x7684;<code>displayName</code>&#x51FD;&#x6570;&#x5B9E;&#x4F8B;&#x7684;&#x5F15;&#x7528;&#xFF0C;&#x800C;<code>displayName</code>&#x5B9E;&#x4F8B;&#x4ECD;&#x53EF;&#x8BBF;&#x95EE;&#x5176;&#x8BCD;&#x6CD5;&#x4F5C;&#x7528;&#x57DF;&#x4E2D;&#x7684;&#x53D8;&#x91CF;&#xFF0C;&#x5373;&#x53EF;&#x4EE5;&#x8BBF;&#x95EE;&#x5230;<code>name</code>&#x3002;&#x7531;&#x6B64;&#xFF0C;&#x5F53;<code>myFunc</code>&#x88AB;&#x8C03;&#x7528;&#x65F6;<code>name</code>&#x4ECD;&#x53EF;&#x88AB;&#x8BBF;&#x95EE;&#x3002;</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">makeAdder</span>(<span class="hljs-params">x</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">y</span>) </span>{
+    <span class="hljs-keyword">return</span> x + y;
+  };
+}
+
+<span class="hljs-keyword">var</span> add5 = makeAdder(<span class="hljs-number">5</span>);
+<span class="hljs-keyword">var</span> add10 = makeAdder(<span class="hljs-number">10</span>);
+
+<span class="hljs-built_in">console</span>.log(add5(<span class="hljs-number">2</span>));  <span class="hljs-comment">// 7</span>
+<span class="hljs-built_in">console</span>.log(add10(<span class="hljs-number">2</span>)); <span class="hljs-comment">// 12</span>
+</code></pre>
+<h2 id="&#x7528;&#x95ED;&#x5305;&#x6A21;&#x62DF;&#x79C1;&#x6709;&#x65B9;&#x6CD5;&#xFF1A;&#x6A21;&#x5757;&#x6A21;&#x5F0F;module-pattern">&#x7528;&#x95ED;&#x5305;&#x6A21;&#x62DF;&#x79C1;&#x6709;&#x65B9;&#x6CD5;&#xFF1A;&#x6A21;&#x5757;&#x6A21;&#x5F0F;(module pattern)</h2>
+<p>&#x539F;&#x751F;javascript&#x662F;&#x4E0D;&#x652F;&#x6301;&#x79C1;&#x6709;&#x65B9;&#x6CD5;&#x7684;&#xFF0C;&#x4F46;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x662F;&#x95ED;&#x5305;&#x6765;&#x6A21;&#x62DF;&#x79C1;&#x6709;&#x65B9;&#x6CD5;&#x3002;&#x79C1;&#x6709;&#x65B9;&#x6CD5;&#x4E0D;&#x4EC5;&#x6709;&#x5229;&#x4E8E;&#x9650;&#x5236;&#x5BF9;&#x4EE3;&#x7801;&#x7684;&#x8BBF;&#x95EE;&#xFF1B;&#x8FD8;&#x63D0;&#x4F9B;&#x4E86;&#x7BA1;&#x7406;&#x5168;&#x5C40;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x7684;&#x80FD;&#x529B;&#xFF0C;&#x907F;&#x514D;&#x53D8;&#x91CF;&#x6C61;&#x67D3;&#x3002;&#x8FD9;&#x79CD;&#x65B9;&#x6CD5;&#x4E5F;&#x88AB;&#x79F0;&#x4E3A;<a href="http://wiki.jikexueyuan.com/project/javascript-design-patterns/modular-model.html" target="_blank">&#x6A21;&#x5757;&#x6A21;&#x5F0F;(module pattern)</a></p>
+<pre><code class="lang-javascript"><span class="hljs-comment">/**
+ * Counter:&#x533F;&#x540D;&#x51FD;&#x6570;&#x4F53;
+ * &#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;
+ */</span>
+<span class="hljs-keyword">var</span> Counter=(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)
+</span>{
+    <span class="hljs-comment">/**
+     * privateCounter &#x79C1;&#x6709;&#x5BF9;&#x8C61;
+     */</span>
+    <span class="hljs-keyword">var</span> privateCounter=<span class="hljs-number">0</span>;
+    <span class="hljs-comment">/**
+     * changeBy(val)&#x79C1;&#x6709;&#x51FD;&#x6570;
+     * val &#x4F20;&#x5165;&#x53D8;&#x91CF;
+     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">changeBy</span>(<span class="hljs-params">val</span>)
+    </span>{
+        privateCounter+=val;<span class="hljs-comment">//privateCounter&#x4E0E;val&#x6C42;&#x548C;</span>
+    }
+    <span class="hljs-comment">/**
+     * &#x8FD4;&#x56DE;&#x5BF9;&#x8C61;
+     * increment &#x8BA1;&#x6570;&#x5668;&#x51FD;&#x6570;
+     * decrement &#x8BA1;&#x6570;&#x5668;&#x51FD;&#x6570;
+     * value &#x6280;&#x672F;&#x7ED3;&#x679C;&#x51FD;&#x6570;
+     */</span>
+    <span class="hljs-keyword">return</span> {
+        increment:<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)
+        </span>{
+            changeBy(<span class="hljs-number">1</span>);
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;<span class="hljs-comment">//&#x8BA1;&#x7B97;&#x540E;&#x8FD4;&#x56DE;&#x81EA;&#x8EAB;</span>
+        },
+        decrement:<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)
+        </span>{
+            changeBy(<span class="hljs-number">-1</span>);
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;<span class="hljs-comment">//&#x8BA1;&#x7B97;&#x540E;&#x8FD4;&#x56DE;&#x81EA;&#x8EAB;</span>
+        },
+        value:<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)
+        </span>{
+            <span class="hljs-keyword">return</span> privateCounter;
+        }
+    }
+})()
+<span class="hljs-built_in">console</span>.log(Counter.value());<span class="hljs-comment">/* &#x8F93;&#x51FA; 0 */</span>
+
+Counter.increment().increment();
+<span class="hljs-built_in">console</span>.log(Counter.value());<span class="hljs-comment">/* &#x8F93;&#x51FA; 2 */</span>
+
+Counter.decrement()
+<span class="hljs-built_in">console</span>.log(Counter.value());<span class="hljs-comment">/* &#x8F93;&#x51FA; 1 */</span>
+</code></pre>
+<p>&#x4EE5;&#x4E0A;&#x4EE3;&#x7801;&#x521B;&#x5EFA;&#x4E86;&#x4E00;&#x4E2A;&#x7ACB;&#x5373;&#x6267;&#x884C;&#x533F;&#x540D;&#x51FD;&#x6570;&#x4F53;<code>Counter</code>&#xFF0C;&#x8BE5;&#x4F5C;&#x7528;&#x57DF;&#x4E2D;&#x5305;&#x542B;&#x4E24;&#x4E2A;&#x79C1;&#x6709;&#x9879;&#xFF1A;<code>privateCounter</code>&#x53D8;&#x91CF;&#x548C;<code>changeBy</code>&#x51FD;&#x6570;&#xFF0C;&#x4E24;&#x9879;&#x90FD;&#x65E0;&#x6CD5;z&#x7231;&#x533F;&#x540D;&#x51FD;&#x6570;&#x5916;&#x76F4;&#x63A5;&#x8BBF;&#x95EE;,&#x5FC5;&#x987B;&#x901A;&#x8FC7;&#x533F;&#x540D;&#x51FD;&#x6570;&#x8FD4;&#x56DE;&#x4E09;&#x4E2A;&#x516C;&#x5171;&#x51FD;&#x6570;&#x8BBF;&#x95EE;&#x3002;</p>
+<p>&#x4E09;&#x4E2A;&#x516C;&#x5171;&#x51FD;&#x6570;&#x662F;&#x5171;&#x4EAB;&#x4E00;&#x4E2A;&#x73AF;&#x5883;&#x7684;&#x95ED;&#x5305;.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> Counter=(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)
+</span>{
+    <span class="hljs-keyword">var</span> privateCounter=<span class="hljs-number">0</span>;
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">changeBy</span>(<span class="hljs-params">val</span>)
+    </span>{
+        privateCounter+=val;
+    }
+    <span class="hljs-keyword">return</span> {
+        increment:<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)
+        </span>{
+            changeBy(<span class="hljs-number">1</span>);
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+        },
+        decrement:<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)
+        </span>{
+            changeBy(<span class="hljs-number">-1</span>);
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+        },
+        value:<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)
+        </span>{
+            <span class="hljs-keyword">return</span> privateCounter;
+        }
+    }
+});
+
+<span class="hljs-keyword">var</span> Counter1=Counter();
+<span class="hljs-keyword">var</span> Counter2=Counter();
+Counter1.increment();
+<span class="hljs-built_in">console</span>.log(Counter1.value());
+<span class="hljs-built_in">console</span>.log(Counter2.value());
+</code></pre>
+<h2 id="&#x5728;&#x5FAA;&#x73AF;&#x4E2D;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x95ED;&#x5305;&#xFF1A;&#x662F;&#x4E00;&#x4E2A;&#x5E38;&#x89C1;&#x7684;&#x9519;&#x8BEF;">&#x5728;&#x5FAA;&#x73AF;&#x4E2D;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x95ED;&#x5305;&#xFF1A;<em>&#x662F;&#x4E00;&#x4E2A;&#x5E38;&#x89C1;&#x7684;&#x9519;&#x8BEF;</em></h2>
+<h2 id="&#x6027;&#x80FD;&#x8003;&#x91CF;">&#x6027;&#x80FD;&#x8003;&#x91CF;</h2>
+<p>&#x5982;&#x679C;&#x4E0D;&#x662F;&#x67D0;&#x4E9B;&#x7279;&#x5B9A;&#x4EFB;&#x52A1;&#x9700;&#x8981;&#x95ED;&#x5305;&#xFF0C;&#x5728;&#x5176;&#x4ED6;&#x51FD;&#x6570;&#x4E2D;&#x521B;&#x5EFA;&#x51FD;&#x6570;&#x662F;&#x4E0D;&#x660E;&#x667A;&#x7684;&#xFF0C;&#x8FD9;&#x610F;&#x5473;&#x7740;&#x4E0D;&#x518D;&#x9700;&#x8981;&#x989D;&#x5916;&#x7684;&#x95ED;&#x5305;&#x3002;</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">MyObject</span>(<span class="hljs-params">name, message</span>) </span>{
+  <span class="hljs-keyword">this</span>.name = name.toString();
+  <span class="hljs-keyword">this</span>.message = message.toString();
+  <span class="hljs-keyword">this</span>.getName = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.name;
+  };
+
+  <span class="hljs-keyword">this</span>.getMessage = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.message;
+  };
+}
+</code></pre>
+<p>&#x5982;&#x4E0A;&#x4EE3;&#x7801;&#x6CA1;&#x6709;&#x7528;&#x5230;&#x95ED;&#x5305;&#x7684;&#x597D;&#x5904;&#xFF0C;&#x53EF;&#x4EE5;&#x4FEE;&#x6539;&#x6210;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">MyObject</span>(<span class="hljs-params">name, message</span>) </span>{
+  <span class="hljs-keyword">this</span>.name = name.toString();
+  <span class="hljs-keyword">this</span>.message = message.toString();
+}
+MyObject.prototype{
+  getName : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.name;
+  },
+  getMessage : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.message;
+  }
+}
+</code></pre>
+<p>&#x4F46;&#x662F;&#x4E0D;&#x5EFA;&#x8BAE;&#x91CD;&#x65B0;&#x5B9A;&#x4E49;&#x539F;&#x578B;&#xFF1B;&#x5982;&#x4E0B;</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">MyObject</span>(<span class="hljs-params">name, message</span>) </span>{
+  <span class="hljs-keyword">this</span>.name = name.toString();
+  <span class="hljs-keyword">this</span>.message = message.toString();
+}
+MyObject.prototype.getName = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.name;
+};
+
+MyObject.prototype.getMessage = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.message;
+}
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="javascript设计模式.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: javascript设计模式">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"javascript闭包","level":"1.4","depth":1,"previous":{"title":"javascript设计模式","level":"1.3","depth":1,"path":"doc/javascript/javascript设计模式.md","ref":"./doc/javascript/javascript设计模式.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-lunr","-search","splitter","search-pro-kui"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"splitter":{},"search-pro-kui":{},"highlight":{},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"sixlib","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"sixlib的小书","language":"zh-hans","gitbook":"*"},"file":{"path":"doc/javascript/javascript闭包.md","mtime":"2018-08-17T11:29:41.706Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-30T12:21:58.479Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro-kui/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro-kui/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
