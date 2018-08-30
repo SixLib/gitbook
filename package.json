@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "gh-pages": "^1.2.0",
+    "gitbook-plugin-github": "^3.0.0",
+    "gitbook-plugin-search-pro": "^2.0.2",
+    "gitbook-plugin-search-pro-kui": "^1.0.0",
+    "gitbook-plugin-splitter": "^0.0.8"
+  }
+}
