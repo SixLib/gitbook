@@ -1,5 +1,5 @@
 {
-  "title": "javascript",
+  "title": "sixlib的小书",
   "language": "zh-hans",
   "author": "sixlib",
   "plugins": ["-sharing", "-lunr", "-search", "splitter", "search-pro-kui"]
