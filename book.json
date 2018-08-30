@@ -1,0 +1,36 @@
+{
+  "title": "sixlib的小书",
+  "language": "zh-hans",
+  "author": "sixlib",
+  "plugins": [
+    "-sharing",
+    "-lunr",
+    "-search",
+    "splitter",
+    "search-pro-kui",
+    "toggle-chapters",
+    "back-to-top-button",
+    "sectionx",
+    "github",
+    "tbfed-pagefooter",
+    "echarts",
+    "new-flowchart"
+  ],
+  "pluginsConfig": {
+    "chart": {},
+    "theme-default": {
+      "showLevel": true
+    },
+    "sectionx": {
+      "tag": "b"
+    },
+    "github": {
+      "url": "https://github.com/sixlib/gitbook"
+    },
+    "tbfed-pagefooter": {
+      "copyright": "Copyright © sixlib的小书 2018",
+      "modify_label": "该文件修订时间：",
+      "modify_format": "YYYY-MM-DD HH:mm:ss"
+    }
+  }
+}
