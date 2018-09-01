@@ -14,7 +14,8 @@
     "github",
     "tbfed-pagefooter",
     "echarts",
-    "new-flowchart"
+    "new-flowchart",
+    "include-csv"
   ],
   "pluginsConfig": {
     "chart": {},
