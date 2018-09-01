@@ -9,19 +9,27 @@
     "splitter",
     "search-pro-kui",
     "toggle-chapters",
-    "back-to-top-button",
-    "sectionx",
+    "anchor-navigation-ex",
     "github",
     "tbfed-pagefooter",
     "echarts",
     "new-flowchart",
-    "include-csv"
+    "include-csv",
+    "alerts"
   ],
   "pluginsConfig": {
     "chart": {},
     "theme-default": {
       "showLevel": true
     },
+    "anchor-navigation-ex": {
+	    "float": { 
+	        "showLevelIcon": true,
+	        "level1Icon": "fa fa-hand-o-right",
+	        "level2Icon": "fa fa-hand-o-right",
+	        "level3Icon": "fa fa-hand-o-right"
+	    }
+	},
     "sectionx": {
       "tag": "b"
     },
